@@ -13,7 +13,7 @@
 >
 > 建议在运行程序前建立虚拟环境。
 
-[check.py](./check.py) 是程序的启动入口，这个文件包含以下内容：
+[check.py](./src/check.py) 是程序的启动入口，这个文件包含以下内容：
 
 1. 设置路径
 
@@ -36,7 +36,7 @@
 
 3. 调用子模块
 
-   `query_list` 是一个 `DataFrame` 对象列表，用于保存质疑列表。`DataFrame` 对象的具体数据结构由 [query.py](./query.py) 中的类 `Query` 定义如下：
+   `query_list` 是一个 `DataFrame` 对象列表，用于保存质疑列表。`DataFrame` 对象的具体数据结构由 [query.py](./src/query.py) 中的类 `Query` 定义如下：
 
    | 变量       | 含义       |
    | ---------- | ---------- |
@@ -66,7 +66,7 @@
 
 对于公共字段（`方案编号`，`研究中心`，`受试者编号`，...）的核查，应当提取成单独的子模块，避免在每一个子模块中重复相同代码。
 
-本项目中的公共字段核查在子模块 [check_common.py](./check_common.py) 中定义。
+本项目中的公共字段核查在子模块 [check_common.py](./src/check_common.py) 中定义。
 
 在其他子模块中调用：
 
@@ -86,7 +86,7 @@ if df_ae.empty:
 
 ### 移除空行
 
-某些空行可能是为了方便查看数据而特意保留的，数据核查前应当移除这些空行：
+某些空行可能是为了方便查看数据而特意保留的，数据核查前应当使用 `pandas.DataFrame.dropna` 函数移除这些空行：
 
 ```py
 df_ph = df_ph.dropna(how="all")
