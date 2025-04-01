@@ -4,7 +4,7 @@
 
 ## 运行环境准备
 
-- [Python=3.13](https://www.python.org/downloads/)
+- [Python~=3.13](https://www.python.org/downloads/)
 - [pandas[excel]==2.2.3](https://github.com/pandas-dev/pandas)
 
 ## 程序启动入口
