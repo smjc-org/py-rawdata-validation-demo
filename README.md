@@ -94,7 +94,7 @@ df_ph = df_ph.dropna(how="all")
 
 ### 偏函数
 
-`Query` 类中的 `create_query` 函数需要被频繁地调用，但在同一子模块中，它的部分参数是不会变化的，此时，可使用 `functools'partial` 简化函数的签名：
+`Query` 类中的 `create_query` 函数需要被频繁地调用，但在同一子模块中，它的部分参数是不会变化的，此时，可使用 `functools.partial` 简化函数的签名：
 
 ```py
 create_query_ct = partial(create_query, vistoid=vistoid, formoid=formoid, formnm=formnm)
