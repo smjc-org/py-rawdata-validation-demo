@@ -32,7 +32,7 @@
    使用 `pandas.read_excel` 函数读取 Excel 中的数据。
 
    - `parse_dates` 可用于指定部分没有被正确识别的日期型变量
-   - `keep_default_na` 可用于指定是否将部分 `N/A`, `NA`, ... 字符串识别为缺失值 `NaN`
+   - `keep_default_na` 可用于指定是否将部分 `N/A`，`NA`，... 字符串识别为缺失值 `NaN`
 
 3. 调用子模块
 
@@ -64,7 +64,7 @@
 
 ### 公共字段
 
-对于公共字段（`方案编号`，`研究中心`，`受试者编号`, ...）的核查，应当提取成单独的子模块，而不是在每一个子模块中重复相同代码。
+对于公共字段（`方案编号`，`研究中心`，`受试者编号`，...）的核查，应当提取成单独的子模块，避免在每一个子模块中重复相同代码。
 
 本项目中的公共字段核查在子模块 [check_common.py](./check_common.py) 中定义。
 
@@ -76,7 +76,7 @@ df_query_list.append(check_common(df=df_ct, vistoid=vistoid, formoid=formoid, fo
 
 ### 过滤数据
 
-对于一些 `Finding` 类型的数据集，某些受试者可能不存在相应数据，其对应的 `YN` 变量为 `否`，数据核查前应当先过滤这部分受试者：
+对于一些 `Event` 类型的数据集，某些受试者可能不存在相应数据，其对应的 `YN` 变量为 `否`，数据核查前应当先过滤这部分受试者：
 
 ```py
 df_ae = df_ae[df_ae["AEYN"] == "是"]
@@ -94,13 +94,13 @@ df_ph = df_ph.dropna(how="all")
 
 ### 偏函数
 
-`Query` 类的 `create_query` 调用比较频繁，且在同一子模块中，部分参数是不会变化的，此时，可使用 `functools'partial` 简化函数的签名：
+`Query` 类中的 `create_query` 函数需要被频繁地调用，但在同一子模块中，它的部分参数是不会变化的，此时，可使用 `functools'partial` 简化函数的签名：
 
 ```py
 create_query_ct = partial(create_query, vistoid=vistoid, formoid=formoid, formnm=formnm)
 ```
 
-然后在子模块中直接调用：
+然后在子模块中使用新的函数名调用：
 
 ```py
 create_query_ct(variable="CTDAT", label="检查日期", subjid=df_ct_ctdat_missing["SUBJID"], query="此字段必填")
