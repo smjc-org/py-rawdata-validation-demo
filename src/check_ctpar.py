@@ -6,8 +6,8 @@ from query import create_query
 from check_common import check_common
 
 vistoid = "V2"
-formoid = "CT"
-formnm = "CT扫描"
+formoid = "CTPAR"
+formnm = "CT扫描-重建参数"
 
 create_query_ctpar = partial(create_query, vistoid=vistoid, formoid=formoid, formnm=formnm)
 
@@ -61,6 +61,8 @@ def check_ctpar_logic(df_ctpar: pd.DataFrame) -> pd.DataFrame:
 
 
 def check_ctpar(df_ctpar: pd.DataFrame) -> pd.DataFrame:
+    df_ctpar = df_ctpar.dropna(how="all")
+
     df_query_list = []
     df_query_list.append(check_ctpar_missing(df_ctpar))
     df_query_list.append(check_ctpar_logic(df_ctpar))

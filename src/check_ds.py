@@ -49,6 +49,8 @@ def check_ds_logic(df_ds: pd.DataFrame) -> pd.DataFrame:
 
 
 def check_ds(df_ds: pd.DataFrame) -> pd.DataFrame:
+    df_ds = df_ds.dropna(how="all")
+
     df_query_list = []
     df_query_list.append(check_ds_missing(df_ds))
     df_query_list.append(check_ds_logic(df_ds))

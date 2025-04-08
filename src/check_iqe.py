@@ -41,6 +41,8 @@ def check_iqe_logic(df_iqe: pd.DataFrame) -> pd.DataFrame:
 
 
 def check_iqe(df_iqe: pd.DataFrame) -> pd.DataFrame:
+    df_iqe = df_iqe.dropna(how="all")
+
     df_query_list = []
     df_query_list.append(check_iqe_missing(df_iqe))
     df_query_list.append(check_iqe_logic(df_iqe))

@@ -123,6 +123,8 @@ def check_ct_logic(df_ct: pd.DataFrame, df_ie: pd.DataFrame) -> pd.DataFrame:
 
 
 def check_ct(df_ct: pd.DataFrame, df_ie: pd.DataFrame) -> pd.DataFrame:
+    df_ct = df_ct.dropna(how="all")
+
     df_query_list = []
     df_query_list.append(check_ct_missing(df_ct))
     df_query_list.append(check_ct_logic(df_ct, df_ie))

@@ -63,7 +63,7 @@ def check_lb_logic(df_lb: pd.DataFrame, df_info: pd.DataFrame, df_ct: pd.DataFra
 
     # 【性别】为“女”或【初拟增强检查经筛选后是否有变更】选择“无”，此字段必填
     df = df_lb.merge(df_info, on="SUBJID", how="left").merge(df_ie, on="SUBJID", how="left")
-    df_lb_logic = df[((df["SEX"] == "女") | (df["ECTCYN"] == "无")) & df["LBDAT"].isna()]
+    df_lb_logic = df[((df["SEX"] == "女") & (df["AGE"] >= 18) & (df["AGE"] <= 55) & (df["LBTERM"] == "血妊娠") | (df["ECTCYN"] == "无") & (df["LBTERM"] == "血清肌酐(Scr)")) & df["LBDAT"].isna()]
     if not df_lb_logic.empty:
         df_query_list.append(create_query_lb(variable="LBDAT", label="采样日期", subjid=df_lb_logic["SUBJID"], query="【性别】为“女”或【初拟增强检查经筛选后是否有变更】选择“无”，此字段必填"))
 
